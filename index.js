@@ -12,7 +12,7 @@ morgan.token('info', function getBody (req) {
 app.use(getBody)
 app.use(morgan(':method :url: :response-time :info'))  
 app.use(cors())
-
+app.use(express.static('dist'))
 let persons =
     [
         {

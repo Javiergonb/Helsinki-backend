@@ -12,7 +12,6 @@ morgan.token('info', function getBody (req) {
 app.use(getBody)
 app.use(morgan(':method :url: :response-time :info'))  
 app.use(cors())
-app.use(express.static('dist'))
 
 let persons =
     [
@@ -56,7 +55,7 @@ app.get('/api/persons', (request, response) => {
 
 app.get('/api/persons/:id', ((request, response) => {
     const id = request.params.id
-    const person = persons.find(person => person.id === id)
+    const person = persons.find(note => note.id === id)
 
     if (person) {
         response.send(person)

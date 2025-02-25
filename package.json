@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Javiergonb/Helsinki-backend#readme",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.21.2",
     "morgan": "^1.10.0"
   }

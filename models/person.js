@@ -4,7 +4,8 @@ mongoose.set('strictQuery', false)
 
 const url = process.env.MONGODB_URI
 
-console.log('connecting to', url)
+const sanitizedUrl = url.replace(/:\/\/(.*):(.*)@/, '://<user>:<password>@')
+console.log('connecting to', sanitizedUrl)
 mongoose.connect(url)
   .then(result => {
     console.log('connected to MongoDB')
@@ -14,8 +15,20 @@ mongoose.connect(url)
   })
 
 const personSchema = new mongoose.Schema({
-    name: String,
-    number: String,
+    name: {
+      type: String,
+      minLength : 3,
+    },
+    number: {
+      type: String,
+      required: true,
+      validate: {
+        validator: function(v){
+          return /^[0-9]{2,3}-[0-9]{5,}$/.test(v)
+        },
+        message: props => `${props.value} is not a valid phone number!`
+      }
+    }
 })
 
 personSchema.set('toJSON', {
